@@ -1,4 +1,4 @@
-name: Pipeline 1 - Compile, Test
+name: Compile, Test
 on: ["push"]
 env:
   SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}

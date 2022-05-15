@@ -14,6 +14,4 @@ public interface Queries {
     public static final String SQL_SELECT_USER_BY_EMAIL = 
         "select * from user where email = ?";
 
-
-   
 }
