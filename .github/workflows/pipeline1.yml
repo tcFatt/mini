@@ -1,4 +1,4 @@
-name: Compile, Test
+name: Pipeline 1 - Compile, Test
 on: ["push"]
 env:
   SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
@@ -33,7 +33,7 @@ jobs:
           space_name: minispace
           space_region: sgp1
           source: .github/badges/jacoco.svg
-          out_dir: coverage/${{ github.event.repository.name }}
+          out_dir: coverage/pipeline1/${{ github.event.repository.name }}
           permission: public-read
       - name: Upload coverage report to DigitalOcean spaces
         uses: BetaHuhn/do-spaces-action@v2
@@ -43,4 +43,4 @@ jobs:
           space_name: minispace
           space_region: sgp1
           source: target/site/jacoco
-          out_dir: coverage/${{ github.event.repository.name }}/report
+          out_dir: coverage/pipeline1/${{ github.event.repository.name }}/report

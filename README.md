@@ -1,6 +1,6 @@
-# Pipeline 1
+## Pipeline 1
 
-[![Compile, test, deploy](https://github.com/tcfatt/mini/actions/workflows/main.yml/badge.svg)](https://github.com/tcfatt/mini/actions/workflows/main.yml/)
+[![Compile, Test](https://github.com/tcfatt/mini/actions/workflows/pipeline1.yml/badge.svg)](https://github.com/tcfatt/mini/actions/workflows/pipeline1.yml/)
 
-![Coverage](https://minispace.sgp1.digitaloceanspaces.com/coverage/mini/jacoco.svg)
+![Coverage](https://minispace.sgp1.digitaloceanspaces.com/coverage/pipeline1/mini/jacoco.svg)
 
