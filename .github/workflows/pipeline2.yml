@@ -8,6 +8,8 @@ jobs:
   step1:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout my repository
+        uses: actions/checkout@v3
       - name: DeployHeroku with github secrets
         uses: akhileshns/heroku-deploy@v3.12.12 
         with:
