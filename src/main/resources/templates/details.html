@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css" 
+        integrity="sha512-1hsteeq9xTM5CX6NsXiJu3Y/g+tj+IIwtZMtTisemEv3hx+S9ngaW4nryrNcPM4xGzINcKbwUJtojslX2KG+DQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="/css/mini.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>  
+    <nav class="navbar navbar-fixed-top sticky-top navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">where2park</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home"><i class="fa-solid fa-house">&nbsp;</i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/favourite"><i class="fa-solid fa-star">&nbsp;</i>Favourites</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown">
+                          <i class="fa-solid fa-user">&nbsp;</i><span th:text="${username}"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-address-card">&nbsp;</i>Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket">&nbsp;</i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-sm mt-3" th:each="i : ${carparkdata}">
+        <h2 th:text="${i.carParkNo + ' (' + i.carParkType + ')'}"></h2>
+        <div class="row mt-3" >
+            <div class="col-sm-6 mt-3">
+                <img  class="img-fluid img-thumbnail" th:src="${i.map}" alt="Sorry, image fail to load."/>
+            </div>        
+            <div class="col-sm mt-3">
+                <br>
+                <p>Address:	<span th:text="${i.address}"></span></p>
+                <p>Parking System: <span th:text="${i.parkingSystem}"></span></p>
+                <p>Short Term Parking: <span th:text="${i.parkingTerm}"></span></p>
+                <p>Free Parking: <span th:text="${i.freeParking}"></span></p>
+                <p>Night Parking: <span th:text="${i.nightParking}"></span></p>
+                <p>No. Of Decks: <span th:text="${i.decks}"></span></p>
+                <p>Clearance Height: <span th:text="${i.gantryHeight}"></span></p>
+                <p>Available Lots: <span th:text="${i.availableLots}"></span></p>
+                <p>Total Lots: <span th:text="${i.totalLots}"></span></p>
+                    <form action="/save" method="post">
+                    <input class="form-control" type="hidden" name="car_park_no" th:value="*{i.carParkNo}">	
+                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-plus">&nbsp;</i>Favourite</button>
+                    </form>
+                <div class="message fs-4 mt-3">
+                    <span class="text-danger" th:text="${message1}"></span>
+                    <span class="text-primary" th:text="${message2}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

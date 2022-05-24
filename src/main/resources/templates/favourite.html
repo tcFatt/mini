@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css" 
+        integrity="sha512-1hsteeq9xTM5CX6NsXiJu3Y/g+tj+IIwtZMtTisemEv3hx+S9ngaW4nryrNcPM4xGzINcKbwUJtojslX2KG+DQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="/css/mini.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>  
+    <nav class="navbar navbar-fixed-top sticky-top navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">where2park</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home"><i class="fa-solid fa-house">&nbsp;</i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/favourite"><i class="fa-solid fa-star">&nbsp;</i>Favourites</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown">
+                          <i class="fa-solid fa-user">&nbsp;</i><span th:text="${username}"></span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-address-card">&nbsp;</i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket">&nbsp;</i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-sm mt-3">
+        <h2 text-center>Favourites</h2>
+        <div class="mt-3 text-sm" th:if="${favouriteAddress != null}">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-2">Car Park No.</th>
+                        <th class="col">Address</th>
+                        <th class="col-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>    
+                    <tr th:each="i : ${favouriteAddress}">
+                        <td th:text="${i.carParkNo}"></td>
+                        <td th:text="${i.address}"></td>
+                        <td>
+                            <div class="d-flex flex-col">
+                                <form  action="/select" method="post">
+                                    <input class="form-control" type="hidden" name="car_park_no" th:value="*{i.carParkNo}">
+                                    <button class="btn btn-success btn-sm" type="submit">Details</button>
+                                </form>&nbsp;
+                                <form  action="/delete" method="post">
+                                    <input class="form-control" type="hidden" name="car_park_no" th:value="*{i.carParkNo}">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-3 text-center text-primary" data-th-if="${favouriteAddress.isEmpty()}">
+            <h4>You have no favourite car park in records!</h4>
+        </div>
+        <div class="message text-danger text-center mt-3">
+            <h4 th:text="${message}"></h4>
+        </div>
+    </div>
+
+</body>
+</html>

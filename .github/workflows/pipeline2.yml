@@ -1,4 +1,4 @@
-name: Compile, Test
+name: Compile, Test, Deploy to Heroku
 on: ["push"]
 env:
   SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
@@ -33,7 +33,7 @@ jobs:
           space_name: minispace
           space_region: sgp1
           source: .github/badges/jacoco.svg
-          out_dir: coverage/pipeline1/${{ github.event.repository.name }}
+          out_dir: coverage/pipeline2/${{ github.event.repository.name }}
           permission: public-read
       - name: Upload coverage report to DigitalOcean spaces
         uses: BetaHuhn/do-spaces-action@v2
@@ -43,4 +43,15 @@ jobs:
           space_name: minispace
           space_region: sgp1
           source: target/site/jacoco
-          out_dir: coverage/pipeline1/${{ github.event.repository.name }}/report
+          out_dir: coverage/pipeline2/${{ github.event.repository.name }}/report
+      - name: DeployHeroku with github secrets
+        uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{ secrets.heroku_api_key }}
+          heroku_app_name: where-2-park
+          heroku_email: ${{ secrets.heroku_email }}
+          branch: ${{ github.ref_name }}
+        env:
+          HD_SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          HD_SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          HD_SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}

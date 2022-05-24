@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css" 
+        integrity="sha512-1hsteeq9xTM5CX6NsXiJu3Y/g+tj+IIwtZMtTisemEv3hx+S9ngaW4nryrNcPM4xGzINcKbwUJtojslX2KG+DQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="/css/mini.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>  
+    <nav class="navbar navbar-fixed-top sticky-top navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">where2park</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home"><i class="fa-solid fa-house">&nbsp;</i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/favourite"><i class="fa-solid fa-star">&nbsp;</i>Favourites</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" role="button" data-bs-toggle="dropdown">
+                          <i class="fa-solid fa-user">&nbsp;</i><span th:text="${username}"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-address-card">&nbsp;</i>Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket">&nbsp;</i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3" th:each="i : ${user}">
+        <div class="row justify-content-md-center">
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-4" src="/images/avatar.png" width="90">
+                    <span class="font-weight-bold mb-2" th:text="${i.username}"></span>
+                    <span>
+                        <button type="button" class="btn btn-link text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#changePassword">
+                            <i class="fa-solid fa-lock">&nbsp;</i>Change Password
+                        </button>
+                    </span>
+                    <span>
+                        <button type="button" class="btn btn-link text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#deactivateAccount">
+                            <i class="fa-solid fa-user-xmark">&nbsp;</i>Deactivate Account
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <!-- The Modal -->
+            <div class="modal" id="changePassword">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <form action="/change" method="post">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Change Password</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="mt-2">
+                                <span>Please type your old and new passwords.</span>
+                            </div>
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="password" class="form-control" placeholder="Enter old password" name="password" required>
+                                <label for="password">Old Password</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="password" class="form-control" placeholder="Enter new password" name="newPassword" id="password" required>
+                                <label for="newPassword">New Password</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="password" class="form-control" placeholder="Confirm new password" id="password_confirm" oninput="check(this)" required>
+                                <label for="newPassword">Confirm New Password</label>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Modal -->
+            <div class="modal" id="deactivateAccount">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <form action="/deactivate" method="post">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Deactivate Account</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="mt-2">
+                                <span>This action cannot be undone. It will permanently delete the records in the favourites.
+                                <br>Please type your <b>username</b> to confirm.
+                                </span>
+                            </div>
+                            <div class="form-floating mb-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Enter username" name="username" required>
+                                <label for="username">Enter username here</label>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+           <div class="col-md-6">
+                <div class="p-3 py-5">
+                    <form action="/edit" method="post">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="text-right"><i class="fa-solid fa-user-pen">&nbsp;</i>Edit your profile</h5>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col"><label for="name">Name :</label>
+                            <input type="text" class="form-control" name="name" th:placeholder="${i.name}" required></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col"><label for="email">Email :</label>
+                            <input type="email" class="form-control" name="email" th:placeholder="${i.email}" required></div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </div>
+                        <div class="message fs-4 mt-4">
+                            <span class="text-danger" th:text="${message1}"></span>
+                            <span class="text-primary" th:text="${message2}"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/mini.js"></script>
+</body>
+</html>
