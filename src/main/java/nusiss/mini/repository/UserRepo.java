@@ -1,6 +1,6 @@
 package nusiss.mini.repository;
 
-import static nusiss.mini.model.ConvertUtil.convertUserByRs;
+import static nusiss.mini.model.ConvertUtil.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,6 +1,6 @@
 package nusiss.mini.controller;
 
-import static nusiss.mini.model.ConvertUtil.convertUserByForm;
+import static nusiss.mini.model.ConvertUtil.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -20,7 +20,7 @@ public class AuthenticationFilter implements Filter{
         HttpServletResponse httpResp = (HttpServletResponse)response;
         HttpSession sess = httpReq.getSession();
         String username = (String)sess.getAttribute("username");
-        if ((null == username) || (username.trim().length() <= 0)) {
+        while ((null == username) || (username.trim().length() <= 0)) {
             httpResp.sendRedirect("/");
             return;
         }

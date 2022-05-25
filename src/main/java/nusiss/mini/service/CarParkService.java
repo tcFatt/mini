@@ -1,7 +1,6 @@
 package nusiss.mini.service;
 
-import static nusiss.mini.model.ConvertUtil.convertCarParkAsList;
-import static nusiss.mini.model.ConvertUtil.convertCarParkByRs;
+import static nusiss.mini.model.ConvertUtil.*;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -24,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import nusiss.mini.repository.Queries;
+import nusiss.mini.repository.UserRepo;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -41,7 +41,7 @@ public class UserControllerTest implements Queries{
     private MockHttpSession sess;
 
     @Autowired
-    private JdbcTemplate template;
+    private UserRepo userRepo;
 
     private MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
 
@@ -64,7 +64,7 @@ public class UserControllerTest implements Queries{
 
     @AfterAll
     public void cleanup() {
-        template.update(SQL_DELETE_USER_BY_USERNAME, "david");
+        userRepo.deleteUser("david");
     }
 
     @Test
