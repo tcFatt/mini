@@ -43,9 +43,9 @@ public class UserControllerTest implements Queries{
     @Autowired
     private UserRepo userRepo;
 
-    private MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
+    private static final MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
 
-    private MultiValueMap<String, String> fake = new LinkedMultiValueMap<>();
+    private static final MultiValueMap<String, String> fake = new LinkedMultiValueMap<>();
 
     @BeforeAll
     public void setup() {

@@ -16,7 +16,6 @@ public class CarPark {
     private String latitude;
     private String longitude;
 
-
     public String getCarParkNo() {
         return this.carParkNo;
     }

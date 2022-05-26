@@ -18,10 +18,6 @@ import nusiss.mini.filter.AuthenticationFilter;
 @SpringBootTest
 class TestApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
 	private static final AuthenticationFilter filter = new AuthenticationFilter();
 
 	@Test

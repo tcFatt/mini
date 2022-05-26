@@ -15,16 +15,16 @@ public class AuthenticationFilter implements Filter{
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-
         HttpServletRequest httpReq = (HttpServletRequest)request;
         HttpServletResponse httpResp = (HttpServletResponse)response;
         HttpSession sess = httpReq.getSession();
         String username = (String)sess.getAttribute("username");
-        while ((null == username) || (username.trim().length() <= 0)) {
+        if ((null == username) || (username.trim().length() <= 0)) {
             httpResp.sendRedirect("/");
             return;
-        }
+        } else {
         chain.doFilter(request, response);
+        }
     }
    
 }
